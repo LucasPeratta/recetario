@@ -4,10 +4,10 @@ import { Typography } from "@mui/material";
 import { format } from "date-fns";
 import Datos from "./components/Datos";
 
-function App() {
-  const date = format(new Date(), " dd/MM/yyyy ");
-  const time = format(new Date(), "HH:mm");
+const date = format(new Date(), " dd/MM/yyyy ");
+const time = format(new Date(), "HH:mm");
 
+function App() {
   return (
     <Box sx={styles.body}>
       {/* nav */}

@@ -189,7 +189,7 @@ const Datos = () => {
         </Box>
       </LocalizationProvider>
 
-      <div>{mostrar ? <Pdf /> : null} </div>
+      <div>{mostrar ? <Pdf formulario={formulario} /> : null} </div>
     </>
   );
 };
