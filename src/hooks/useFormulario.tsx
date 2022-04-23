@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useState } from "react"
 
 const useFormulario = (inicial: any) => {
-  const [formulario, setFormulario] = useState(inicial);
+  const [formulario, setFormulario] = useState(inicial)
   const handleChange = (e: any) => {
     setFormulario({
       ...formulario,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
   const reset = () => {
-    setFormulario(inicial);
-  };
+    setFormulario(inicial)
+  }
 
-  return [formulario, handleChange, reset];
-};
+  return [formulario, handleChange, reset]
+}
 
-export default useFormulario;
+export default useFormulario

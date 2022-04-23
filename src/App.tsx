@@ -1,11 +1,11 @@
-import "./App.css";
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
-import { format } from "date-fns";
-import Datos from "./components/Datos";
+import "./App.css"
+import Box from "@mui/material/Box"
+import { Typography } from "@mui/material"
+import { format } from "date-fns"
+import Datos from "./components/Datos"
 
-const date = format(new Date(), " dd/MM/yyyy ");
-const time = format(new Date(), "HH:mm");
+const date = format(new Date(), " dd/MM/yyyy ")
+const time = format(new Date(), "HH:mm")
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         <Datos />
       </Box>
     </Box>
-  );
+  )
 }
 
 const styles = {
@@ -45,9 +45,9 @@ const styles = {
     margin: "1em 0",
     alignItems: "center",
   },
-};
+}
 
-export default App;
+export default App
 
 {
   /* datos */

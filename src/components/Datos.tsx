@@ -1,4 +1,5 @@
-import Box from "@mui/material/Box";
+import { useState } from "react"
+import Box from "@mui/material/Box"
 import {
   Button,
   FormControl,
@@ -6,15 +7,14 @@ import {
   Radio,
   RadioGroup,
   TextField,
-} from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import PrintIcon from "@mui/icons-material/Print";
-import { useState } from "react";
-import Pdf from "./Pdf";
+} from "@mui/material"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import RestartAltIcon from "@mui/icons-material/RestartAlt"
+import PrintIcon from "@mui/icons-material/Print"
+import Pdf from "./Pdf"
+import { format } from "date-fns"
 
 const Datos = () => {
   const [formulario, handleChange, reset] = useFormulario({
@@ -24,14 +24,15 @@ const Datos = () => {
     nombre: "",
     rp: "",
     motivo: "",
-    fecha: "",
-  });
+  })
 
-  const [mostrar, setMostrar] = useState(false);
+  const [mostrar, setMostrar] = useState(false)
+  const [fecha, setFecha] = useState(new Date())
 
   const handleSubmit = (e: any) => {
-    setMostrar(true);
-  };
+    setMostrar(true)
+    console.log({ ...formulario, fecha })
+  }
 
   return (
     <>
@@ -55,7 +56,6 @@ const Datos = () => {
               id="standard-basic"
               label="Nro de Carnet"
               variant="standard"
-              placeholder="Nro de Carnet"
             />
           </Box>
           <Box
@@ -120,15 +120,14 @@ const Datos = () => {
               id="standard-basic"
               label="Apellido y Nombre"
               variant="standard"
-              placeholder="Apellido y Nombre"
               sx={{ width: "50%" }}
             />
             <DesktopDatePicker
               label="Fecha:"
-              inputFormat="MM/dd/yyyy"
-              value={formulario.fecha}
-              onChange={(date) => {
-                console.log(date);
+              inputFormat="dd/MM/yyyy"
+              value={fecha}
+              onChange={(fecha) => {
+                fecha && setFecha(fecha)
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -154,7 +153,6 @@ const Datos = () => {
             size="medium"
             label="Motivo de Solicitud"
             variant="standard"
-            placeholder="Motivo de Solicitud"
             fullWidth
             sx={{ margin: "2em  0" }}
           />
@@ -189,10 +187,28 @@ const Datos = () => {
         </Box>
       </LocalizationProvider>
 
-      <div>{mostrar ? <Pdf formulario={formulario} /> : null} </div>
+      <div>
+        {mostrar ? <Pdf formulario={{ ...formulario, fecha }} /> : null}{" "}
+      </div>
     </>
-  );
-};
+  )
+}
+export default Datos
+
+const useFormulario = (inicial: any) => {
+  const [formulario, setFormulario] = useState(inicial)
+  const handleChange = (e: any) => {
+    setFormulario({
+      ...formulario,
+      [e.target.name]: e.target.value,
+    })
+  }
+  const reset = () => {
+    setFormulario(inicial)
+  }
+
+  return [formulario, handleChange, reset]
+}
 
 const styles = {
   datos: {
@@ -200,21 +216,4 @@ const styles = {
     border: "1px solid black",
     marginBottom: "2em ",
   },
-};
-
-const useFormulario = (inicial: any) => {
-  const [formulario, setFormulario] = useState(inicial);
-  const handleChange = (e: any) => {
-    setFormulario({
-      ...formulario,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const reset = () => {
-    setFormulario(inicial);
-  };
-
-  return [formulario, handleChange, reset];
-};
-
-export default Datos;
+}
