@@ -5,7 +5,7 @@ const useFormulario = (inicial: any) => {
   const handleChange = (e: any) => {
     setFormulario({
       ...formulario,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     })
   }
   const reset = () => {
