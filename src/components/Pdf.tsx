@@ -1,11 +1,12 @@
-import { PDFViewer, Page, Text, View, Document } from "@react-pdf/renderer";
-import { format } from "date-fns";
+import { PDFViewer, Page, Text, View, Document } from "@react-pdf/renderer"
+import { format } from "date-fns"
 
-const date = format(new Date(), " dd/MM/yyyy ");
-const time = format(new Date(), "HH:mm");
+const date = format(new Date(), " dd/MM/yyyy ")
+const time = format(new Date(), "HH:mm")
+
 const Pdf = ({ formulario }: { formulario: any }) => {
-  const MyDocument: any = Document;
-  const MyPage: any = Page;
+  const MyDocument: any = Document
+  const MyPage: any = Page
 
   return (
     <PDFViewer style={{ width: "100%", height: "100%" }}>
@@ -57,12 +58,12 @@ const Pdf = ({ formulario }: { formulario: any }) => {
         </MyPage>
       </MyDocument>
     </PDFViewer>
-  );
-};
+  )
+}
 // const styles = {
 //   fecha: {
 //     display: "flex",
 //   },
 // };
 
-export default Pdf;
+export default Pdf
