@@ -17,6 +17,31 @@ import Pdf from "./Pdf"
 import useFormulario from "../hooks/useFormulario"
 
 const Datos = () => {
+  const validate = (values: any) => {
+    const errors: any = {}
+
+    if (!values.nroCarnet) {
+      errors.nroCarnet = true
+    }
+    if (!values.obraSocial) {
+      errors.obraSocial = true
+    }
+    if (!values.nroBonoControl) {
+      errors.nroBonoControl = true
+    }
+    if (!values.nombre) {
+      errors.nombre = true
+    }
+    if (!values.rp) {
+      errors.rp = true
+    }
+    if (!values.motivo) {
+      errors.motivo = true
+    }
+
+    return errors
+  }
+
   const [formulario, handleChange, reset] = useFormulario({
     nroCarnet: "",
     obraSocial: "",
@@ -28,9 +53,14 @@ const Datos = () => {
 
   const [mostrar, setMostrar] = useState(false)
   const [fecha, setFecha] = useState(new Date())
+  const [errores, setErrores] = useState<any>({})
 
   const handleSubmit = (e: any) => {
-    setMostrar(true)
+    const x = validate(formulario)
+    setErrores(x)
+    if (Object.keys(x).length === 0) {
+      setMostrar(true)
+    }
   }
 
   const resetear = () => {
@@ -54,6 +84,8 @@ const Datos = () => {
             >
               <p>Entidad Primaria</p>
               <TextField
+                error={errores.nroCarnet}
+                helperText={errores.nroCarnet && "Campo requerido"}
                 name="nroCarnet"
                 value={formulario.nroCarnet}
                 onChange={handleChange}
@@ -72,6 +104,8 @@ const Datos = () => {
               }}
             >
               <TextField
+                error={errores.obraSocial}
+                helperText={errores.obraSocial && "Campo requerido"}
                 name="obraSocial"
                 value={formulario.obraSocial}
                 onChange={handleChange}
@@ -100,6 +134,8 @@ const Datos = () => {
                 </RadioGroup>
               </FormControl>
               <TextField
+                error={errores.nroBonoControl}
+                helperText={errores.nroBonoControl && "Campo requerido"}
                 name="nroBonoControl"
                 value={formulario.nroBonoControl}
                 onChange={handleChange}
@@ -118,6 +154,8 @@ const Datos = () => {
               }}
             >
               <TextField
+                error={errores.nombre}
+                helperText={errores.nombre && "Campo requerido"}
                 name="nombre"
                 value={formulario.nombre}
                 onChange={handleChange}
@@ -140,6 +178,8 @@ const Datos = () => {
           </Box>
           <Box>
             <TextField
+              error={errores.rp}
+              helperText={errores.rp && "Campo requerido"}
               name="rp"
               value={formulario.rp}
               onChange={handleChange}
@@ -152,6 +192,8 @@ const Datos = () => {
             />
 
             <TextField
+              error={errores.motivo}
+              helperText={errores.motivo && "Campo requerido"}
               name="motivo"
               value={formulario.motivo}
               onChange={handleChange}
